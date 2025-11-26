@@ -11,7 +11,8 @@
 
         3. The device name uses the following convention:
 
-        INT-<STATE>-<SERIAL>
+            INT-<STATE>-<SERIAL>
+            INT-QLD-3F9VFX3
 
         4. The device is rebooted using a scheduled task after Windows Hello for Business is configured.        
         
@@ -34,8 +35,14 @@ Register-ScheduledTask -xml (Get-Content '.\Intune-RenameDevice-Reboot.xml' | Ou
 $ipaddress = (Invoke-WebRequest -uri "https://api.ipify.org/").Content
 $geoinfo = Invoke-RestMethod -Method Get -Uri "http://ip-api.com/json/$IPAddress"
 $serial = Get-WmiObject win32_bios | Select-Object -ExpandProperty "Serialnumber"
-$suffix = $serial.SubString(0,6)
 $prefix = 'INT-'
+
+if ($serial.Length -le 7) {
+    $suffix = $serial
+} else {
+    $suffix = $serial.SubString(0,7)
+}
+
 $hostname = ($prefix) + ($geoinfo.region) + "-" + ($suffix)
 
 # Rename device
