@@ -7,7 +7,7 @@
         
         1. Queries the devices' public IP to obtain the state the device is being enrolled in.
 
-        2. Queries the devices' serial number and truncates it to 6 characters.
+        2. Queries the devices' serial number and truncates it to 7 characters if necessary.
 
         3. The device name uses the following convention:
 
