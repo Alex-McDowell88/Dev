@@ -36,13 +36,7 @@ $ipaddress = (Invoke-WebRequest -uri "https://api.ipify.org/").Content
 $geoinfo = Invoke-RestMethod -Method Get -Uri "http://ip-api.com/json/$IPAddress"
 $serial = Get-WmiObject win32_bios | Select-Object -ExpandProperty "Serialnumber"
 $prefix = 'INT-'
-
-if ($serial.Length -le 7) {
-    $suffix = $serial
-} else {
-    $suffix = $serial.SubString(0,7)
-}
-
+$suffix = $serial.SubString(0,7)
 $hostname = ($prefix) + ($geoinfo.region) + "-" + ($suffix)
 
 # Rename device
