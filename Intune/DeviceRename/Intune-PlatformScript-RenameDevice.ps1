@@ -17,7 +17,7 @@
         4. The device is rebooted using a scheduled task after Windows Hello for Business is configured.        
         
     .NOTES
-        TBC.
+        N/A
         
 #>
 
